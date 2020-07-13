@@ -46,10 +46,6 @@ export class EditComponent implements OnInit {
       this.error = "Owner name couldn't be empty";
       this.mainError = true;
     }
-    if(this.plates.findIndex(x=>x.plateNumber === this.newPlate.plateNumber) > -1){
-      this.error = "This car plate number already exists!";
-      this.mainError = true;
-    }
     if(!this.mainError){
       this.platesService.editRecord(this.plate, this.newPlate).subscribe(response=>{
         if(response === "Failed"){
