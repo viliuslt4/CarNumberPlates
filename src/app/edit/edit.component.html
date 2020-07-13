@@ -1,0 +1,27 @@
+<div *ngIf="!changed">
+    <h2 mat-dialog-title>You are editing owner name {{plate.name}} and car plate number {{plate.plateNumber}}</h2>
+
+    <mat-dialog-content>
+        <div class="input-wrapper">
+            <label>Owner</label>
+            <input [(ngModel)]="newPlate.name"> 
+        </div>
+        <div class="input-wrapper">
+            <label>Plate number</label>
+            <input [(ngModel)]="newPlate.plateNumber">
+        </div>
+    </mat-dialog-content>
+    <div class="error-box">
+        <span>{{error}}</span>
+    </div>
+    <mat-dialog-actions>
+        <div class="btn-wrapper">
+            <button class="mat-raised-button mat-primary"(click)="save()">Save</button>
+            <button class="mat-raised-button btn-save"(click)="close()">Close</button>
+        </div>
+    </mat-dialog-actions>
+</div>
+<div *ngIf="changed">
+    <h1 mat-dialog-title>You have successfully changed {{plate.name}} {{plate.plateNumber}} to {{newPlate.name}} {{newPlate.plateNumber}}</h1>
+</div>
+

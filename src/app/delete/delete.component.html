@@ -1,0 +1,14 @@
+<div *ngIf="!changed">
+    <h1 mat-dialog-title>Are you sure you want to delete owner {{plate.name}} car plate number {{plate.plateNumber}}?</h1>
+    <span>{{error}}</span>
+    <mat-dialog-actions>
+        <div class="btn-wrapper">
+            <button class="mat-raised-button mat-primary"(click)="delete()">Delete</button>
+            <button class="mat-raised-button btn-save"(click)="close()">Cancel</button>
+        </div>
+    </mat-dialog-actions>
+</div>
+<div *ngIf="changed">
+    <h1 mat-dialog-title>You have successfully removed owner {{plate.name}} car plate number {{plate.plateNumber}} </h1>
+</div>
+

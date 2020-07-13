@@ -1,0 +1,47 @@
+.container{
+    padding:0rem 2rem;
+    height:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap:wrap;
+    .main-app{
+        width:100%;
+        padding:2rem 0;
+        .title{
+            text-align:center;
+            h1{
+                margin-bottom: 3rem;
+                @media(min-width:567px){
+                    font-size:36px;
+                    margin-bottom: 5rem;
+                }
+            }
+        }
+        .form-wrapper{
+            width:100%;
+            display:flex;
+            justify-content: flex-end;
+            padding-bottom:2.5rem;
+            position:relative;
+            input{
+                font-size:16px;
+                margin:0 0.5rem;
+                padding:0 0.5rem;
+            }
+            button{
+                background-color: #E8E8E8;
+                font-size:16px;
+            }
+            span{
+                position:absolute;
+                bottom:0.5rem;
+                right:0;
+                &.error{
+                    color:red;
+                }
+            }
+        }
+    }
+    
+}
