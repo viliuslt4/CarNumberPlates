@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { PlatesService } from './plates.service';
 import { Plate } from './models/plate.model';
-
+import { environment } from './../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,9 @@ export class AppComponent implements OnInit {
   message: string = "";
   error: string = "";
   newPlate = new Plate();
-  constructor (private platesService:PlatesService ) {}
+  constructor (private platesService:PlatesService ) {
+    console.log(environment.host);
+  }
 
   ngOnInit() {
 
