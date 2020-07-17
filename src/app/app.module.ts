@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { PlatesTableComponent } from './plates-table/plates-table.component';
@@ -16,6 +17,7 @@ import { PlatesTableComponent } from './plates-table/plates-table.component';
 import { PlatesService } from './plates.service';
 import { EditComponent } from './edit/edit.component';
 import { DeleteComponent } from './delete/delete.component';
+import { ValidationService } from './validation.service';
 
 
 @NgModule({
@@ -35,9 +37,10 @@ import { DeleteComponent } from './delete/delete.component';
     FormsModule,
     HttpClientModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    ReactiveFormsModule
   ],
-  providers: [PlatesService, PlatesTableComponent],
+  providers: [PlatesService, PlatesTableComponent, ValidationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

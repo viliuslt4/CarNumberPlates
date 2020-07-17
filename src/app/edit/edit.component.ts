@@ -1,63 +1,60 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Plate } from '../models/plate.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { PlatesService } from "../plates.service";
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { ValidationService } from '../validation.service';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
-export class EditComponent implements OnInit {
+export class EditComponent {
   plate: Plate;
   newPlate: Plate;
   error: string;
-  mainError: boolean = false;
-  plates: Plate[];
   changed: boolean = false;
-  constructor(private dialogRef: MatDialogRef<EditComponent>, private platesService:PlatesService,
-    @Inject(MAT_DIALOG_DATA) data){
+  editPlateForm: any;
+  clicked = false;
+  constructor(private dialogRef: MatDialogRef<EditComponent>, private platesService:PlatesService, private formBuilder: FormBuilder,
+  @Inject(MAT_DIALOG_DATA) data){
       this.plate = data.plate;
-      this.newPlate = Object.assign({}, data.plate);
-      this.plates = data.plates;
-    }
-
-  ngOnInit() {
-
+      this.editPlateForm = this.formBuilder.group({
+        owner: [this.plate.name, [Validators.required, ValidationService.onlyLetters]],
+        plateNumber: [this.plate.plateNumber, [Validators.required, ValidationService.plateNumberMatch]],
+        isSame: ''
+      });
+      this.editPlateForm.setValidators(ValidationService.checkIfSame(this.plate));
   }
-  close() {
+  get owner() { return this.editPlateForm.get('owner'); }
+  get plateNumber() { return this.editPlateForm.get('plateNumber'); }
+  get matched() {return this.editPlateForm.get('isSame'); }
+  close(){
     this.dialogRef.close();
   }
   save(){
-    let regexPlate = /^[a-zA-Z]{3}-{1}?\d{3}$/i;
-    let regexOwner = /[a-zA-Z]+/g;
-    this.mainError = false;
-    this.error = "";
-    this.newPlate.plateNumber = this.newPlate.plateNumber.toUpperCase();
-    if(!regexPlate.test(this.newPlate.plateNumber)){
-      this.error = "Invalid car plate number, it should folow XXX-123 example!";
-      this.mainError = true;
-    }
-    if(!regexOwner.test(this.newPlate.name)){
-      this.error = "Owner name should contain only letters!";
-      this.mainError = true;
-    }
-    if(this.newPlate.name === '' || this.newPlate.name === undefined){
-      this.error = "Owner name couldn't be empty";
-      this.mainError = true;
-    }
-    if(!this.mainError){
-      this.platesService.editRecord(this.plate, this.newPlate).subscribe(response=>{
-        if(response === "Failed"){
-          this.error === "Something went wrong, please try again!";
+    if(this.editPlateForm.status !== 'INVALID'){
+      this.clicked = true;
+      this.newPlate = new Plate();
+      this.newPlate.name = this.capitalizeFirstLetter(this.owner.value);
+      this.newPlate.plateNumber = this.plateNumber.value.toUpperCase();
+      this.platesService.editRecord(this.plate, this.newPlate).subscribe(result=>{
+        if(result.response === "Failed"){
+          this.error = result.Message;
+          this.clicked = false;
         }else{
           this.changed = true;
+          this.clicked = false;
           setTimeout(()=>{
-            this.dialogRef.close();
+            this.close();
             location.reload();
           }, 3000);
         }
       });  
     }
+  }
+  capitalizeFirstLetter(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

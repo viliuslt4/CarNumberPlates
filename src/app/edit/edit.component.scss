@@ -5,30 +5,45 @@
     background-color:white;
     color: #424242;
 }
+.editPlate{
+    max-width:800px;
+}
 .btn-wrapper{
     display:flex;
     justify-content: flex-end;
+    width:100%;
 }
-.input-wrapper{
-    display:block;
-    margin-right: 0.5rem;
-    label{
-        padding-bottom:0.5rem;
-        color:white;
+form{
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+    .input-wrapper{
         display:block;
-    }
-    input{
-        font-size: 16px;
-        padding: 0.5rem;
-        border-radius:4px;
-        &:focus{
-            outline:none;
+        width:50%;
+        .input-error{
+            padding-top:0.5rem;
+            color:red;
+        }
+        label{
+            padding-bottom:0.5rem;
+            color:white;
+            display:block;
+        }
+        input{
+            font-size: 16px;
+            padding: 0.5rem;
+            border-radius:4px;
+            &:focus{
+                outline:none;
+            }
         }
     }
-}
-.mat-dialog-content{
-    display: flex;
-    flex-wrap: wrap;
+    .main-error{
+        padding-top:2rem;
+        display:flex;
+        justify-content: flex-end;
+        width:100%;
+    }
 }
 .error-box{
     height:40px;
