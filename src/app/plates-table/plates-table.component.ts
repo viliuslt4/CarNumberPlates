@@ -20,6 +20,12 @@ export class PlatesTableComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   newPlate: Plate;
 
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); 
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+  
   constructor(private plateService: PlatesService, private dialog: MatDialog){}
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
