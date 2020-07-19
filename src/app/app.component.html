@@ -3,36 +3,48 @@
         <div class="title">
             <h1>{{title}}</h1>
         </div>
-        <form (ngSubmit)="createNew()" class="form-wrapper" [formGroup]="createNewPlateForm">
-            <div class="input-wrapper">
-                <input formControlName="owner" placeholder="Owner">
-                <div *ngIf="owner.invalid && (owner.dirty || owner.touched)"
-                    class="input-error">
-                    <div *ngIf="owner.errors.required">
-                        Owner name is required.
+        <div class="form-wrapper">
+            <form (ngSubmit)="createNew()"  [formGroup]="createNewPlateForm">
+                <div class="text-wrapper">
+                    <h2>Create new</h2>
+                </div>
+                <div class="form-elements">
+                    <div class="input-wrapper">
+                        <input formControlName="owner" placeholder="Owner">
+                        <div class="input-error">
+                            <div *ngIf="owner.invalid && (owner.dirty || owner.touched)">
+                                <div *ngIf="owner.errors.required">
+                                    Owner name is required.
+                                </div>
+                                <div *ngIf="owner.errors.invalidLetters">
+                                    Owner name should contain only letters.
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div *ngIf="owner.errors.invalidLetters">
-                        Owner name should contain only letters.
+                    <div class="input-wrapper">
+                        <input formControlName="plateNumber" placeholder="Car number plate">
+                        <div class="input-error">
+                            <div *ngIf="plateNumber.invalid && (plateNumber.dirty || plateNumber.touched)">
+                                <div *ngIf="plateNumber.errors.required">
+                                    Plate number is required.
+                                </div>
+                                <div *ngIf="plateNumber.errors.invalidPlate">
+                                    Invalid car plate number, it should folow XXX-123 example!
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                    <div class=input-wrapper>
+                        <button type="submit" [disabled]="createNewPlateForm.status === 'INVALID' || clicked ? true : false " mat-button color="primary">Create new record</button>
+                    </div>
+                    <div class="error-box">
+                        <span class="message">{{message}}</span>
+                        <span class="error">{{error}}</span>
                     </div>
                 </div>
-            </div>
-            <div class="input-wrapper">
-                <input formControlName="plateNumber" placeholder="Car number plate">
-                <div *ngIf="plateNumber.invalid && (plateNumber.dirty || plateNumber.touched)"
-                    class="input-error">
-                    <div *ngIf="plateNumber.errors.required">
-                        Plate number is required.
-                    </div>
-                    <div *ngIf="plateNumber.errors.invalidPlate">
-                        Invalid car plate number, it should folow XXX-123 example!
-                    </div>
-                </div>
-            </div>   
-            <!-- || clicked-->
-            <button type="submit" [disabled]="createNewPlateForm.status === 'INVALID' || clicked ? true : false " mat-button color="primary">Create new record</button>
-            <span class="message">{{message}}</span>
-            <span class="error">{{error}}</span>
-        </form>
+            </form>
+        </div>
         <app-plates-table class="plates-table"></app-plates-table>
     </div>  
 </div>

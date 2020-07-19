@@ -1,5 +1,5 @@
 <div class="input-wrapper">
-  <label>Search</label>
+  <label>Search by:</label>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Type in...">
 </div>
 <table mat-table [dataSource]="dataSource" matSort>
