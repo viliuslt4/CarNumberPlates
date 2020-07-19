@@ -2,7 +2,7 @@
     <h2 mat-dialog-title>You are editing owner name {{plate.name}} and car plate number {{plate.plateNumber}}</h2>
 
     <mat-dialog-content>
-        <form [formGroup]="editPlateForm">
+        <form [formGroup]="editPlateForm" (ngSubmit)="save()">
             <div class="input-wrapper">
                 <label>Owner</label>
                 <input formControlName="owner" id="owner"> 
@@ -43,7 +43,7 @@
                </span>
             </div>
             <div class="btn-wrapper">
-                <button [disabled]="editPlateForm.status === 'INVALID' || clicked ? true : false " class="mat-raised-button mat-primary"(click)="save()">Save</button>
+                <button type="submit" [disabled]="editPlateForm.status === 'INVALID' || clicked ? true : false " class="mat-raised-button mat-primary" >Save</button>
                 <button class="mat-raised-button btn-save"(click)="close()">Close</button>
             </div>
         </form>

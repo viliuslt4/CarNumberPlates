@@ -3,7 +3,7 @@
         <div class="title">
             <h1>{{title}}</h1>
         </div>
-        <form (onsubmit)="createNew()" class="form-wrapper" [formGroup]="createNewPlateForm">
+        <form (ngSubmit)="createNew()" class="form-wrapper" [formGroup]="createNewPlateForm">
             <div class="input-wrapper">
                 <input formControlName="owner" placeholder="Owner">
                 <div *ngIf="owner.invalid && (owner.dirty || owner.touched)"
@@ -29,7 +29,7 @@
                 </div>
             </div>   
             <!-- || clicked-->
-            <button type="submit" [disabled]="createNewPlateForm.status === 'INVALID' || clicked ? true : false " mat-button color="primary" (click)="createNew()">Create new record</button>
+            <button type="submit" [disabled]="createNewPlateForm.status === 'INVALID' || clicked ? true : false " mat-button color="primary">Create new record</button>
             <span class="message">{{message}}</span>
             <span class="error">{{error}}</span>
         </form>
