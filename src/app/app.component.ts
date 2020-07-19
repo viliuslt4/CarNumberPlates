@@ -2,6 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import { PlatesService } from './plates.service';
 import { Plate } from './models/plate.model';
 import { environment } from './../environments/environment';
+import { ValidationService } from './validation.service';
+import { Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,38 +12,30 @@ import { environment } from './../environments/environment';
 })
 export class AppComponent implements OnInit {
   title = 'Car number plates';
-  mainError: boolean = false;
   message: string = "";
   error: string = "";
-  newPlate = new Plate();
-  constructor (private platesService:PlatesService ) {
-    console.log(environment.host);
-  }
+  newPlate: Plate;
+  createNewPlateForm: any;
+  clicked: boolean = false;
+  constructor (private platesService:PlatesService, private formBuilder: FormBuilder ) {}
 
   ngOnInit() {
-
+    this.createNewPlateForm = this.formBuilder.group({
+      owner: ['', [Validators.required, ValidationService.onlyLetters]],
+      plateNumber: ['', [Validators.required, ValidationService.plateNumberMatch]]
+    });
   }
+  get owner() { return this.createNewPlateForm.get('owner'); }
+  get plateNumber() { return this.createNewPlateForm.get('plateNumber'); }
   createNew(){
-    let regexPlate = /^[a-zA-Z]{3}-{1}?\d{3}$/i;
-    let regexOwner = /[a-zA-Z]+/g;
-    this.mainError = false;
-    this.newPlate.plateNumber = this.newPlate.plateNumber.toUpperCase();
-    if(!regexPlate.test(this.newPlate.plateNumber)){
-      this.error = "Invalid car plate number, it should folow XXX-123 example!";
-      this.mainError = true;
-    }
-    if(!regexOwner.test(this.newPlate.name)){
-      this.error = "Owner name should contain only letters!";
-      this.mainError = true;
-    }
-    if(this.newPlate.name === '' || this.newPlate.name === undefined){
-      this.error = "Owner name couldn't be empty";
-      this.mainError = true;
-    }
-    if(!this.mainError){
-      this.platesService.saveNewPlate(this.newPlate).subscribe(response=>{
-        if(response.response === "Failed"){
-          this.error = "This car plate number already exists";
+    if(this.createNewPlateForm !== "INVALID"){
+      this.clicked = true;
+      this.newPlate = new Plate();
+      this.newPlate.name = this.capitalizeFirstLetter(this.owner.value);
+      this.newPlate.plateNumber = this.plateNumber.value.toUpperCase();
+      this.platesService.saveNewPlate(this.newPlate).subscribe(result=>{
+        if(result.response === "Failed"){
+          this.error = "This car plate number already exists";         
         } else{
           setTimeout(()=>{
             this.message = "You have successfully created new record";
@@ -53,10 +47,13 @@ export class AppComponent implements OnInit {
     this.clearMessage();
   }
   clearMessage(){
-    this.mainError = true;
     setTimeout(()=>{
       this.error = "";
       this.message = "";
+      this.clicked = false;
     },3000);
+  }
+  capitalizeFirstLetter(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

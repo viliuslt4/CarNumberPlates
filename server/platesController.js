@@ -12,12 +12,11 @@ router.post('/savePlate', (req, res)=>{
         'Content-Type': 'application/json'
       });
     if(exists){
+        res.end(JSON.stringify({response:"Failed"}));  
+    } else{
         saveToFile(plates, req.body);
         res.end(JSON.stringify({response:"Success"}));
-    } else{
-        res.end(JSON.stringify({response:"Failed"}));
-    }
-   
+    } 
 });
 router.post('/editPlate', (req, res)=>{
     const plates = readFromFile();
