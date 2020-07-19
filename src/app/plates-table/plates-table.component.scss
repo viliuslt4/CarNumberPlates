@@ -1,6 +1,30 @@
+@import '../../variables.scss';
 .mat-table{
     width:100%;
+    th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+        @media(max-width:$xs){
+            padding-left: 16px;
+        }
+    }  
+    button{
+        &.mat-button{
+            @media(max-width:$xs){
+                min-width:inherit;
+                padding:0 5px;
+            }
+        }
+    }  
+    td{
+        &.mat-cell{
+            &:last-of-type{
+                @media(max-width:$xs){
+                    padding-right:0px;
+                }
+            }
+        }
+    }
 }
+
 .input-wrapper{
     margin-bottom: 1.25rem;
     label{
