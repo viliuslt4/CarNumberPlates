@@ -24,10 +24,21 @@
         }
     }
 }
-
 .input-wrapper{
     margin-bottom: 1.25rem;
+    @media(max-width:$xs){
+        margin-bottom:0.75rem;
+    }
+    input{
+        @media(max-width:$xs){
+            width:100%;
+            margin-right:0;
+        }
+    }
     label{
         font-size:16px;
+        @media(max-width:$xs){
+            margin-bottom:0.5rem;
+        }
     }
 }

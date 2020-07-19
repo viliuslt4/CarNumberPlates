@@ -35,13 +35,13 @@
                             </div>
                         </div>
                     </div>   
-                    <div class=input-wrapper>
+                    <div class="input-wrapper btn">
                         <button type="submit" [disabled]="createNewPlateForm.status === 'INVALID' || clicked ? true : false " mat-button color="primary">Create new record</button>
                     </div>
-                    <div class="error-box">
-                        <span class="message">{{message}}</span>
-                        <span class="error">{{error}}</span>
-                    </div>
+                </div>
+                <div class="error-box">
+                    <span class="message">{{message}}</span>
+                    <span class="error">{{error}}</span>
                 </div>
             </form>
         </div>
