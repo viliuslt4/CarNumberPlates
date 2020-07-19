@@ -1,36 +1,33 @@
 <div *ngIf="!changed" class="editPlate">
-    <h2 mat-dialog-title>You are editing owner name {{plate.name}} and car plate number {{plate.plateNumber}}</h2>
+    <h3 mat-dialog-title>You are editing owner name {{plate.name}} and car plate number {{plate.plateNumber}}</h3>
 
     <mat-dialog-content>
         <form [formGroup]="editPlateForm" (ngSubmit)="save()">
-            <div class="input-wrapper">
-                <label>Owner</label>
-                <input formControlName="owner" id="owner"> 
-                <div *ngIf="owner.invalid && (owner.dirty || owner.touched)"
-                    class="input-error">
-                    <div *ngIf="owner.errors.required">
-                        Owner name is required.
-                    </div>
-                    <div *ngIf="owner.errors.invalidLetters">
-                        Owner name should contain only letters.
+            <div class="form-elements">
+                <div class="input-wrapper">
+                    <label>Owner</label>
+                    <input formControlName="owner" id="owner"> 
+                    <div *ngIf="owner.invalid && (owner.dirty || owner.touched)"
+                        class="input-error">
+                        <div *ngIf="owner.errors.required">
+                            Owner name is required.
+                        </div>
+                        <div *ngIf="owner.errors.invalidLetters">
+                            Owner name should contain only letters.
+                        </div>
                     </div>
                 </div>
-                <!-- 
-                    <div *ngIf="owner.errors.required">
-                        Owner name should contain only letters.
-                    </div>
-                </div> -->
-            </div>
-            <div class="input-wrapper">
-                <label>Plate number</label>
-                <input formControlName="plateNumber" id="plateNumber">
-                <div *ngIf="plateNumber.invalid && (plateNumber.dirty || plateNumber.touched)"
-                    class="input-error">
-                    <div *ngIf="plateNumber.errors.required">
-                        Plate number is required.
-                    </div>
-                    <div *ngIf="plateNumber.errors.invalidPlate">
-                        Invalid car plate number, it should folow XXX-123 example!
+                <div class="input-wrapper">
+                    <label>Plate number</label>
+                    <input formControlName="plateNumber" id="plateNumber">
+                    <div *ngIf="plateNumber.invalid && (plateNumber.dirty || plateNumber.touched)"
+                        class="input-error">
+                        <div *ngIf="plateNumber.errors.required">
+                            Plate number is required.
+                        </div>
+                        <div *ngIf="plateNumber.errors.invalidPlate">
+                            Invalid car plate number, it should folow XXX-123 example!
+                        </div>
                     </div>
                 </div>
             </div>
@@ -50,6 +47,6 @@
     </mat-dialog-content>     
 </div>
 <div *ngIf="changed">
-    <h1 mat-dialog-title>You have successfully changed {{plate.name}} {{plate.plateNumber.toUpperCase()}} to {{newPlate.name}} {{newPlate.plateNumber}}</h1>
+    <h3 mat-dialog-title>You have successfully changed {{plate.name}} {{plate.plateNumber.toUpperCase()}} to {{newPlate.name}} {{newPlate.plateNumber}}</h3>
 </div>
 

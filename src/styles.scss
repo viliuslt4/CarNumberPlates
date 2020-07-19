@@ -16,7 +16,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     align-items: center;
     margin-bottom:0.5rem;
     label{
-        font-weight:bold;
         margin-right: 0.5rem;
     }
 }
@@ -162,6 +161,22 @@ label,button{
             @media(max-width:350px){
                 font-size: 12px;
             }
+        }
+    }
+}
+.mat-dialog-container{
+    max-width:680px;
+    h3{
+        line-height: 1.25;
+        font-size:28px;
+        @media(max-width:$x-lg){
+            font-size:27px;
+        }
+        @media(max-width:$sm){
+            font-size:26px;
+        }
+        @media(max-width:$xs){
+            font-size:25px;
         }
     }
 }
